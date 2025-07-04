@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 const urlencodedParser = express.urlencoded({extended: false});
 
-// Настройка подключения к базе данных
 const pool = mysql.createPool({
   connectionLimit: 5,
   host: "localhost",
@@ -13,10 +12,8 @@ const pool = mysql.createPool({
   password: ""
 });
 
-// Middleware для обработки JSON
 app.use(express.json());
 
-// 1. Получить все items (GET)
 app.get("/getAllItems", function(req, res) {
   pool.query("SELECT * FROM Items", function(err, data) {
     if(err) {
@@ -27,7 +24,6 @@ app.get("/getAllItems", function(req, res) {
   });
 });
 
-// 2. Добавить новый item (POST)
 app.post("/addItem", urlencodedParser, function(req, res) {
   if(!req.body) return res.sendStatus(400);
   
@@ -60,7 +56,6 @@ app.post("/addItem", urlencodedParser, function(req, res) {
   );
 });
 
-// 3. Удалить item (POST)
 app.post("/deleteItem", urlencodedParser, function(req, res) {
   if(!req.body) return res.sendStatus(400);
   
@@ -94,7 +89,6 @@ app.post("/deleteItem", urlencodedParser, function(req, res) {
   );
 });
 
-// 4. Обновить item (POST)
 app.post("/updateItem", urlencodedParser, function(req, res) {
   if(!req.body) return res.sendStatus(400);
   
@@ -141,7 +135,6 @@ app.post("/updateItem", urlencodedParser, function(req, res) {
   );
 });
 
-// Запуск сервера
 app.listen(3000, function(){
   console.log("Сервер ожидает подключения...");
 });
