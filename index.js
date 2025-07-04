@@ -11,7 +11,7 @@ app.get('/static', function (req, res) {
 app.get('/dynamic', function (req, res) {
     const { a, b, c } = req.query;
 
-    if (a === undefined,  b === undefined,  c === undefined) 
+    if (a === undefined || b === undefined || c === undefined) 
         {
          return res.json({ header: "Error" });
          
